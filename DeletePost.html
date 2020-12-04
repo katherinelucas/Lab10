@@ -1,0 +1,31 @@
+
+<form action="DeletePost.php" method="post">
+<!-- delete list here -->
+<?php
+echo "";
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+$mysqli = new mysqli("mysql.eecs.ku.edu", "katielucas", "Pairaiy9",
+"katielucas");
+/* check connection */
+if ($mysqli->connect_errno)
+{
+ printf("Connect failed: %s\n", $mysqli->connect_error);
+ exit();
+}
+$result = $mysqli->query("SELECT * FROM Posts");
+echo '<table border=\"1\">';
+while($row = mysqli_fetch_array($result))
+{
+  echo "<tr>";
+  echo "<td>Delete this post?</td>";
+  echo '<td><input type="checkbox" name="checkbox[]" value=”’ . $row[‘post_id’] . ‘”></td>';
+  echo "<td>".$row['author_id']."</td>";
+  echo "<td>".$row['content']."</td>";
+  echo "</tr>";
+}
+echo '</table>';
+?>
+
+<input type="submit" class="button" id="submit" value="Submit"/>
+</form>
